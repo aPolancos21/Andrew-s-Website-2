@@ -1,0 +1,196 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Conversion Tool</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-bg: #1e2430;            
+            --color-box: #2d3648;           
+            --color-box-alt: #4c4fa1;       
+            --color-text: #e8eaed;          
+            --color-heading: #68cbd0;       
+            --color-button-bg: #5364ce;    
+            --color-button-bg-hover: #68cbd0;
+            --color-button-text: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: "Inter", sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: var(--color-heading);
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: var(--color-text);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        i {
+            display: block;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+            color: #a0a3a8;
+        }
+
+        .box {
+            display: block;
+            border: 1px solid #3f4557;
+            margin: 10px auto;
+            padding: 10px;
+            width: 500px;
+            background-color: var(--color-box);
+            color: var(--color-text);
+        }
+
+        .box.alternate {
+            background-color: var(--color-box-alt);
+        }
+
+        .links-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            padding: 0 10px;
+        }
+
+        .links-container a {
+            padding: 12px 18px;
+            background-color: var(--color-button-bg);
+            color: var(--color-button-text);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .links-container a:hover {
+            background-color: var(--color-button-bg-hover);
+            color: var(--color-bg);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Conversion (Celsius ↔ Fahrenheit, Meters ↔ Feet)</h1>
+   
+    <div class="box">
+        <h2>Celsius to Fahrenheit</h2>
+        <label for="n1">Celsius: </label>
+        <input id="n1" name="n1" type="number">
+        <button onclick="computeCelsiustoFahrenheit()">Compute Fahrenheit</button>
+        <button onclick="clearvaluesCtF()">Clear Values</button>
+        <br><br>
+        <label for="fahrenheit" id="Fahrenheit">Fahrenheit: </label>
+        <input id="fahrenheit" name="fahrenheit" type="number" readonly>
+    </div>
+
+    <div class="box alternate">
+        <h2>Fahrenheit to Celsius</h2>
+        <label for="n2">Fahrenheit: </label>
+        <input id="n2" name="n2" type="number">
+        <button onclick="computeFahrenheittoCelsius()">Compute Celsius</button>
+        <button onclick="clearvaluesFtC()">Clear Values</button>
+        <br><br>
+        <label for="celsius" id="Celsius">Celsius: </label>
+        <input id="celsius" name="celsius" type="number" readonly>
+    </div>
+
+    <div class="box">
+        <h2>Meters to Feet</h2>
+        <label for="n3">Meters: </label>
+        <input id="n3" name="n3" type="number">
+        <button onclick="computeMeterstoFeet()">Compute Feet</button>
+        <button onclick="clearvaluesMtFt()">Clear Values</button>
+        <br><br>
+        <label for="feet" id="Feet">Feet: </label>
+        <input id="feet" name="feet" type="number" readonly>
+    </div>
+
+    <div class="box alternate">
+        <h2>Feet to Meters</h2>
+        <label for="n4">Feet: </label>
+        <input id="n4" name="n4" type="number">
+        <button onclick="computeFeettoMeters()">Compute Meters</button>
+        <button onclick="clearvaluesFttoM()">Clear Values</button>
+        <br><br>
+        <label for="meters" id="Meters">Meters: </label>
+        <input id="meters" name="meters" type="number" readonly>
+    </div>
+
+    <div class="links-container">
+        <a href="homepage.html">Back to Home Page</a>
+    </div>
+
+    <script>
+        function computeCelsiustoFahrenheit() {
+            var c = parseFloat(document.getElementById("n1").value) || 0;
+            let f = (c * 9/5) + 32;
+            document.getElementById("Fahrenheit").innerHTML = 'The Fahrenheit of '+c+' (Celsius) is:';
+            document.getElementById("fahrenheit").value = f.toFixed(2);
+        }
+
+        function computeFahrenheittoCelsius() {
+            var f = parseFloat(document.getElementById("n2").value) || 0;
+            let c = (f - 32) * 5/9;
+            document.getElementById("Celsius").innerHTML = 'The Celsius of '+f+' (Fahrenheit) is:';
+            document.getElementById("celsius").value = c.toFixed(2);
+        }
+
+        function computeMeterstoFeet() {
+            var m = parseFloat(document.getElementById("n3").value) || 0;
+            let ft = m * 3.281;
+            document.getElementById("Feet").innerHTML = 'The Feet of '+m+' (Meters) is:';
+            document.getElementById("feet").value = ft.toFixed(2);
+        }
+
+        function computeFeettoMeters() {
+            var ft = parseFloat(document.getElementById("n4").value) || 0;
+            let m = ft / 3.281;
+            document.getElementById("Meters").innerHTML = 'The Meters of '+ft+' (Feet) is:';
+            document.getElementById("meters").value = m.toFixed(2);
+        }
+
+        function clearvaluesCtF() {
+            document.getElementById("n1").value = '';
+            document.getElementById("Fahrenheit").innerHTML = 'Fahrenheit:';
+            document.getElementById("fahrenheit").value = '';
+        }
+        function clearvaluesFtC() {
+            document.getElementById("n2").value = '';
+            document.getElementById("Celsius").innerHTML = 'Celsius:';
+            document.getElementById("celsius").value = '';
+        }
+        function clearvaluesMtFt() {
+            document.getElementById("n3").value = '';
+            document.getElementById("Feet").innerHTML = 'Feet:';
+            document.getElementById("feet").value = '';
+        }
+        function clearvaluesFttoM() {
+            document.getElementById("n4").value = '';
+            document.getElementById("Meters").innerHTML = 'Meters:';
+            document.getElementById("meters").value = '';
+        }
+    </script>
+
+</body>
+</html>

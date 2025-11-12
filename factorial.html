@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Factorial & Natural Numbers</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Marcellus&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Quicksand', sans-serif;
+    background-color: #1E1E2E;
+    color: #E6E6FA;
+    text-align: center;
+    overflow-x: hidden;
+  }
+
+  /* Floating clouds */
+  .cloud {
+    position: absolute;
+    top: 20%;
+    left: -200px;
+    width: 200px;
+    height: 100px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 100px;
+    animation: float 60s linear infinite;
+    filter: blur(2px);
+  }
+  .cloud::before, .cloud::after {
+    content: '';
+    position: absolute;
+    background: rgba(255,255,255,0.8);
+    border-radius: 50%;
+  }
+  .cloud::before {
+    width: 100px; height: 80px;
+    top: -20px; left: 30px;
+  }
+  .cloud::after {
+    width: 120px; height: 90px;
+    top: 10px; left: 90px;
+  }
+  @keyframes float {
+    from { transform: translateX(0); }
+    to { transform: translateX(120vw); }
+  }
+
+  /* Title */
+  h1 {
+    font-family: "Inter", sans-serif;
+    font-size: 2.5em;
+    color: #8AB4F8;
+    margin-top: 80px;
+    text-shadow: 1px 1px 2px rgba(230,230,250,0.7);
+  }
+
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 40px;
+  }
+
+  .card {
+    background-color: #2a2a38;
+    border-radius: 20px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+    width: 320px;
+    padding: 25px;
+    text-align: center;
+    animation: fadeIn 1.5s ease forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  .card h2 {
+    font-family: 'Marcellus', serif;
+    color: #8AB4F8;
+    font-size: 1.4em;
+    margin-bottom: 15px;
+  }
+
+  .icon {
+    font-size: 2.2em;
+    margin-bottom: 10px;
+    color: #8AB4F8;
+  }
+
+  input {
+    width: 80%;
+    padding: 8px;
+    margin: 6px 0;
+    border: 1px solid #444;
+    border-radius: 8px;
+    font-size: 1em;
+    text-align: center;
+    background-color: #1E1E2E;
+    color: #E6E6FA;
+  }
+
+  button {
+    background-color: #8AB4F8;
+    border: none;
+    color: #1E1E2E;
+    padding: 10px 16px;
+    margin: 6px 4px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+  }
+
+  button:hover {
+    background-color: #6faef8;
+    transform: translateY(-3px);
+  }
+
+  .back-home {
+    display: inline-block;
+    margin: 30px auto 60px;
+    text-decoration: none;
+    background-color: #8AB4F8;
+    color: #1E1E2E;
+    padding: 12px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+    transition: all 0.3s ease;
+    font-weight: 600;
+  }
+
+  .back-home:hover {
+    background-color: #6faef8;
+    transform: translateY(-4px);
+  }
+
+</style>
+</head>
+
+<body>
+  <!-- Floating clouds -->
+  <div class="cloud" style="top:10%;animation-delay:0s;"></div>
+  <div class="cloud" style="top:30%;animation-delay:20s;opacity:0.9;"></div>
+  <div class="cloud" style="top:50%;animation-delay:40s;opacity:0.8;"></div>
+
+  <h1>Factorial & Natural Numbers ➗➕∑</h1>
+
+  <div class="card-container">
+    <!-- Factorial -->
+    <div class="card">
+      <div class="icon">➗</div>
+      <h2>Factorial (While Loop)</h2>
+      <label>Enter a number:</label><br>
+      <input id="n1" type="number"><br>
+      <button onclick="computeFactorial()">Compute</button>
+      <button onclick="clearFactorial()">Clear</button><br>
+      <label>Factorial:</label><br>
+      <input id="factorial" type="number" readonly>
+    </div>
+
+    <!-- Sum -->
+    <div class="card">
+      <div class="icon">➕</div>
+      <h2>Sum (Do While Loop)</h2>
+      <label>Enter a number:</label><br>
+      <input id="n2" type="number"><br>
+      <button onclick="computeSum()">Compute</button>
+      <button onclick="clearSum()">Clear</button><br>
+      <label>Sum:</label><br>
+      <input id="sum" type="number" readonly>
+    </div>
+
+    <!-- Average -->
+    <div class="card">
+      <div class="icon">∑</div>
+      <h2>Average (For Loop)</h2>
+      <label>Enter a number:</label><br>
+      <input id="n3" type="number"><br>
+      <button onclick="computeAverage()">Compute</button>
+      <button onclick="clearAverage()">Clear</button><br>
+      <label>Average:</label><br>
+      <input id="average" type="number" readonly>
+    </div>
+  </div>
+
+  <a class="back-home" href="index.html">⬅ Back to Home Page</a>
+
+  <script>
+    function computeFactorial() {
+      let i = document.getElementById("n1").value * 1;
+      let result = 1;
+      while (i > 1) {
+        result *= i;
+        i--;
+      }
+      document.getElementById("factorial").value = result;
+    }
+
+    function computeSum() {
+      let j = document.getElementById("n2").value * 1;
+      let result = 0;
+      let a = 1;
+      do {
+        result += a;
+        a++;
+      } while (a <= j);
+      document.getElementById("sum").value = result;
+    }
+
+    function computeAverage() {
+      let k = document.getElementById("n3").value * 1;
+      let result = 0;
+      for (let b = 1; b <= k; b++) {
+        result += b;
+      }
+      let average = result / k;
+      document.getElementById("average").value = average.toFixed(2);
+    }
+
+    function clearFactorial() {
+      document.getElementById("n1").value = '';
+      document.getElementById("factorial").value = '';
+    }
+    function clearSum() {
+      document.getElementById("n2").value = '';
+      document.getElementById("sum").value = '';
+    }
+    function clearAverage() {
+      document.getElementById("n3").value = '';
+      document.getElementById("average").value = '';
+    }
+  </script>
+</body>
+</html>
